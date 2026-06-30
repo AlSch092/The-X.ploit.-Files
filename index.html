@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Online Game Vulnerabilities</title>
+
+<style>
+
+body{
+    margin:0;
+    padding:30px;
+    background:#1b1b1b;
+    color:#eee;
+    font-family:Segoe UI,Arial,sans-serif;
+}
+
+h1{
+    text-align:center;
+    margin-bottom:40px;
+}
+
+.game{
+    margin-bottom:40px;
+    border-radius:10px;
+    overflow:hidden;
+    background:#2d2d2d;
+    box-shadow:0 0 10px rgba(0,0,0,.35);
+}
+
+.gameHeader{
+    background:#3b3b3b;
+    padding:18px;
+}
+
+.gameHeader h2{
+    margin:0;
+}
+
+.gameHeader p{
+    margin:6px 0 0;
+    color:#bbb;
+}
+
+.vuln{
+    padding:18px;
+    border-top:1px solid #444;
+}
+
+.vuln h3{
+    margin-top:0;
+    color:#73c4ff;
+}
+
+table{
+    width:100%;
+    border-collapse:collapse;
+}
+
+td{
+    padding:6px;
+    vertical-align:top;
+    border-bottom:1px solid #333;
+}
+
+td:first-child{
+    width:220px;
+    font-weight:bold;
+    color:#8fd8ff;
+}
+
+pre{
+    white-space:pre-wrap;
+    word-break:break-word;
+    margin:0;
+    font-family:Consolas,monospace;
+}
+
+.category{
+    display:inline-block;
+    background:#4d4d4d;
+    padding:4px 10px;
+    margin:3px;
+    border-radius:15px;
+    font-size:.9em;
+}
+
+.error{
+    color:#ff6666;
+    font-size:20px;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<h1 id="title">Loading...</h1>
+
+<div id="content"></div>
+
+<script>
+
+async function loadData(){
+
+    try{
+
+        const response = await fetch("vulnerabilities.json");
+
+        if(!response.ok)
+            throw new Error("Unable to load vulnerabilities.json");
+
+        const data = await response.json();
+
+        document.getElementById("title").textContent = data.Title;
+
+        const container = document.getElementById("content");
+
+        data.Entries.forEach(game=>{
+
+            const gameDiv=document.createElement("div");
+            gameDiv.className="game";
+
+            const years=game["Year Range"];
+
+            gameDiv.innerHTML=`
+                <div class="gameHeader">
+                    <h2>${game.Game}</h2>
+                    <p>${years[0]} - ${years[1]}</p>
+                </div>
+            `;
+
+            game.Vulnerabilities.forEach(v=>{
+
+                const vuln=document.createElement("div");
+                vuln.className="vuln";
+
+                let html=`
+                    <h3>${v.ID} - ${v.Name}</h3>
+                `;
+
+                if(v.Categories && v.Categories.length){
+
+                    html+="<p>";
+
+                    v.Categories.forEach(cat=>{
+                        html+=`<span class="category">${cat}</span>`;
+                    });
+
+                    html+="</p>";
+                }
+
+                html+="<table>";
+
+                Object.entries(v).forEach(([key,value])=>{
+
+                    if(key==="ID" || key==="Name" || key==="Categories")
+                        return;
+
+                    if(Array.isArray(value))
+                        value=value.join(", ");
+
+                    if(value===undefined || value==="")
+                        value="<i>Not documented</i>";
+
+                    html+=`
+                        <tr>
+                            <td>${key}</td>
+                            <td><pre>${value}</pre></td>
+                        </tr>
+                    `;
+
+                });
+
+                html+="</table>";
+
+                vuln.innerHTML=html;
+
+                gameDiv.appendChild(vuln);
+
+            });
+
+            container.appendChild(gameDiv);
+
+        });
+
+    }
+    catch(err){
+
+        document.getElementById("content").innerHTML=`
+            <div class="error">
+                <h2>Failed to load JSON</h2>
+                <pre>${err}</pre>
+                <p>If you're opening this via file:/// you'll need to run a local web server.</p>
+            </div>
+        `;
+
+        console.error(err);
+
+    }
+
+}
+
+loadData();
+
+</script>
+
+</body>
+</html>
