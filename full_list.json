@@ -1,12 +1,12 @@
 {
-    "Online Game Vulnerabilities - Full List (IN PROGRESS)"
+    "Title": "Online Game Vulnerabilities - Full List (IN PROGRESS)",
+    "Entries":
     [
         { 
             "Game": "MapleStory",
-            "Year Range": "2010-2017"
+            "Year Range": "2010-2017",
              "Vulnerabilities": 
-             [
-               
+             [      
                 {
                     "ID": "MS-01",
                     "Region": "All",
