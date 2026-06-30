@@ -1,6 +1,6 @@
 # The X(ploit)-Files
 
-A detailed list of vulnerabilities found by the author in online games using primarily outbound packet manipulation throughout the past 15 years (only high and critical-ranked severities included). Multiple different file formats will be included such as JSON, HTML, PDF, etc.  
+A detailed list of vulnerabilities found by the author in online games using primarily outbound packet manipulation throughout the past 15 years (only high and critical-ranked severities included). Multiple different file formats will be included such as JSON, HTML, PDF, etc. Best viewed by grabbing the `index.html` and `vulnerabilities.json` files and running `python -m http.server` from the same directory as the two files.
 
 All findings were discovered by the repository owner/document author, alsch092 on GitHub, unless otherwise stated. In rare cases where a finding required the convergence or chaining of separate ideas, one additional contributor may be credited. Not all findings have been added to the documents yet; many more will be added over time as I find time to complete their write-ups - entries already inclded may also be edited or improved as needed.  
 
@@ -47,3 +47,8 @@ Lower-impact bugs such as visual-only glitches, minor client-side bypasses, and 
 
 ## End Note:  
 If you enjoyed reading the information found in this project or found it helpful as a game developer or game security manager/employee/stakeholder, I'd be happy to chat about potentially helping with improving the security of your online game - either through adversarial simulations/network protocol vulnerability testing, or defensive code development. Feel free to email me at aschwarz92@outlook.com; I'm happy to speak to anyone enthusiastic about the topic or if you feel I could be of help to you.  
+
+## Example Output:
+
+<img width="777" height="465" alt="image" src="https://github.com/user-attachments/assets/036e7546-180e-4292-9974-8d146685d555" />
+
