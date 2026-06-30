@@ -57,7 +57,7 @@
                     "Likely Root Cause": ""
                 },
                 {
-                    "ID": "MS-05",
+                    "ID": "MS-06",
                     "Name": "Generic No-Delay Attacks [IN-PROGRESS]",
                     "Year": 2014-2015,
                     "Description": "A one-byte memory patch inverses a conditional jump and allows the attacker to use skills/attacks as fast as packets can be sent by the game.",
