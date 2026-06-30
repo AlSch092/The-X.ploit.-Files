@@ -10,7 +10,7 @@
                 {
                     "ID": "MS-01",
                     "Region": "All",
-                    "Categories": ["Currency/Item Generation", "Major virtual economy manipulation"],
+                    "Categories": ["Currency/Item Generation", "Incorrect Integer Signage", "Major virtual economy manipulation"],
                     "Name": "Negative Town Donation Exploit (Incorrect integer signage in server code)",
                     "Year": 2010,
                     "Severity": "Critical",
@@ -24,7 +24,7 @@
                     "ID": "MS-02",
                     "Name": "Negative/Reverse-Purchase Dark Crystal Exploit",
                     "Region": "All",
-                    "Categories": ["Currency/Item Generation", "Minor virtual economy manipulation"],  
+                    "Categories": ["Currency/Item Generation", "Incorrect Integer Signage", "Minor virtual economy manipulation"],  
                     "Year": 2010,
                     "Description": "Derivative of the 'negative NPC input' concept seen in \"MS-01\", Dark Crystal items could be 'forged' at one NPC and also purchased through a second different NPC, allowing the attacker to forge the item, then purchase a negative amount of them from the second NPC (forced through packet manipulation). Purchasing -1 quantity of the item would subtract 1 item from your inventory while giving you the amount of currency/meso it normally costs to purchase one (essentially performing the literal reverse transaction). Exploit was chained with a minor exploit which allowed a character to teleport to another in the same 'family' without spending 'family points' in order to easily travel to maps where each NPC resided.",
                     "Result": "Selling the forged crystals for roughly double the cost (a gain of 100,000 mesos per crystal). A 'clientless' or 'headless' bot was then used to run 24/7, with each character earning roughly 2 billion mesos per 24 hours & Remediation",
