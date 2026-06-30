@@ -2,7 +2,7 @@
 
 A detailed list of vulnerabilities found by the author in online games using primarily outbound packet manipulation throughout the past 15 years (only high and critical-ranked severities included). Multiple different file formats will be included such as JSON, HTML, PDF, etc.  
 
-All findings were discovered by the repository owner/document author, alsch092 on GitHub, unless otherwise stated. In rare cases where a finding required the convergence or chaining of separate ideas, one additional contributor may be credited. Not all findings have been added to the documents yet; many more will be added over time as I find time to complete their write-ups.  
+All findings were discovered by the repository owner/document author, alsch092 on GitHub, unless otherwise stated. In rare cases where a finding required the convergence or chaining of separate ideas, one additional contributor may be credited. Not all findings have been added to the documents yet; many more will be added over time as I find time to complete their write-ups - entries already inclded may also be edited or improved as needed.  
 
 ## Introduction: 
 This project is intended as a defensive study and reference for secure online-game engineering. It is not intended to serve as an exploit recipe book for modern live games, nor as a smear campaign against any listed game, developer, or publisher.  
