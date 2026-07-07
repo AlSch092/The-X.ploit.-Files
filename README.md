@@ -2,7 +2,7 @@
 
 A detailed list of vulnerabilities found by the author in online games using primarily outbound packet manipulation throughout the past 15 years (only high and critical-ranked severities included). Multiple different file formats will be included such as JSON, HTML, PDF, etc.  
 
-Best viewed by grabbing the `index.html` and `vulnerabilities.json` files and running `python -m http.server` from the same directory as the two files.
+Best viewed by grabbing the `index.html` and `vulnerabilities.json` files and running `python -m http.server` from the same directory as the two files, then visiting http://localhost:5000 (or whichever port used when running the python script or local server).
 
 All findings were discovered by the repository owner/document author (alsch092 on GitHub), unless otherwise stated. In rare cases where a finding required the convergence or chaining of separate ideas, one additional contributor may be credited. Not all findings have been added to the documents yet; many more will be added over time as I find time to complete their write-ups - any entries already inclded may also be edited/improved as needed.  
 
