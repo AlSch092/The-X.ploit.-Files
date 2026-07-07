@@ -12,21 +12,22 @@ Successful vulnerability discovery via outbound game packets is where creativity
 
 The direction of game hacking has primarily moved towards commercial FPS and non-exploitative "mass botting" in MMORPGs, as the quality of server code (in particular to this case, packet handling & replication logic) has increased significantly over the past decade, forcing an increased time and effort investment to discover elegant and/or impactful vulnerabilities, in addition to requiring workarounds to increasingly complex anti-cheat solutions (in order to reverse engineer netcode/encryption methods used by games).  
 
-## Inclusion Criteria:
+## Inclusion Criteria/Finding Categories:
 
-This portfolio only includes historical game-security findings rated High or Critical based on one or more of the following:
+This project only includes historical game security findings (only author-found) rated High or Critical based on one or more of the following. Findings will fit into one or more of the categories:
 
 - Direct currency, item, or premium-point generation  
-- Scalable automation or clientless exploitation  
-- Cross-account, actor, or session impersonation  
-- Force-control of other players or denial-of-service impacts (including individual players, game channels, or servers)    
-- Major virtual economy manipulation   
+- Faulty "Business-logic" (game features, ex.  "Hidden" quests tracking event timers or dungeon entry counts, which can be forfeited or started if you know the quest ID, and are otherwise never seen in normal send/recv data or resource files)
+- Cross-account, actor, or session impersonation     
+- Major virtual economy destabilization/manipulation  
 - Server-side trust-boundary failure   
 - Item duplication, rollback abuse, or state desynchronization   
-- Exploitability across multiple regions, versions, or game systems
 - Serialization logic errors, such as the improper handling of Protobuf fields (bad conditonal logic of payload fields, in cases where context determines which fields are included in the outbound data)  
+- IDOR (Insecure Direct Object Reference)  
 
 Lower-impact bugs such as visual-only glitches, minor client-side bypasses, and non-security gameplay bugs are intentionally omitted.  
+
+Some vulnerabilities are naturally scalable with automation software (especially "headless" or "client-less" tools), but this itself is not considered a category; it will be mentioned in the "Results" or "Description " fields if automation was required or used by the author for the particular finding.  
 
 ## Severity Rubric:
 
