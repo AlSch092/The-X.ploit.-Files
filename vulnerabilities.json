@@ -34,7 +34,8 @@
                     "ID": "MS-03",
                     "Name": "Item Enhancement Scroll 'No Boom'",
                     "Region": "All",
-                    "Categories": ["State Machine Manipulation", "Critical virtual economy manipulation"],  
+                    "Categories": ["State Machine Manipulation", "Major virtual economy manipulation"], 
+                    "Severity": "Critical",
                     "Year": 2011,
                     "Description": "By making use of a specialized map in the 'Happyville' Christmas Event town which allows you to drop inventory items (which cannot be looted by other players and are auto-returned to the player's inventory when leaving), items could be dropped, then the packet sent for using an item enhancement scroll on that dropped item's unique ID. Even if the enhancement scroll fails and destroys the item at a scaling percentage chance, the item will be restored to your inventory after leaving the map, essentially being able to bypass or prevent items from being destroyed even when the item enhancement scroll fails (which normally destroys the item completely at a high chance). The exploit could also be done by placing an item inside a trade slot window and then sending a packet to use an enhancement scroll on the item, and if the item was destroyed by the scroll, it would be re-obtained when closing the trade window.",
                     "Result": "Equipment items were made en-masse with 200+ successful enhancements applied (which would have a chance of <0.0000000001% of occuring without the exploit), making them the most powerful and 'broken' items in the game's history. The items were later duped using other methods and sold on RMT markets, and in some regions of the game (such as Europe) given away for free, leading to database rollbacks and scripted deletions of all the items over time. Proved to be a particuarily damaging vulnerability, taking over a year to successfully delete all of the mass-enhanced items, as people found ways to 'hide' them from auto-detection or database queries by finding further ways to manipulate the item's states.",
@@ -42,21 +43,25 @@
                 },
                 {
                     "ID": "MS-04",
-                    "Name": "Item Duplication via Channel Crash (Von Leon Quest) - [IN-PROGRESS]",
+                    "Name": "Item Duplication via Channel Crash (Von Leon Quest)",
                     "Year": 2011,
+                    "Severity": "High",
                     "Categories": ["Inventory State Rollback", "Currency/Item Generation", "Major virtual economy manipulation"],  
-                    "Description": "",
-                    "Result": "",
-                    "Likely Root Cause": ""
+                    "Description": "Modifying the 'subcommand' field from 4 to 5 for a specific newly released quest (which could be accepted from any map) would crash the channel, causing a state rollback to the last time a database commit was performed on  characters/accounts in the channel.",
+                    "Packet": "[2-byte opcode: Quests][1-byte Subcommand: 0x04][2-byte QuestID][2-byte NpcID][2-byte MouseX][2-byte MouseY]",
+                    "Modified Packet": "[2-byte opcode: Quests][1-byte Subcommand: 0x05][2-byte QuestID][2-byte NpcID][2-byte MouseX][2-byte MouseY]",
+                    "Result": "Due to a state rollback occuring from this vulnerability, attackers could set up 'personal shops' where a second client/character buys out the shop, logs out (which commits the state of that character), and then the character in the shop sends the modified quest packet to crash (and thus rollback) the channel, resulting in item duplication - as character state is normally only committed after a certain time period, changing channels, or logging out.",
+                    "Likely Root Cause & Remediation": "While the exact method remains unknown, the logical explanation is that packet handling code on the server-side for the subcommand value of 5 (of the quest-related opcode) for that particular quest caused an invalid pointer dereference or tried to access non-existent resource files, resulting in an unhandled exception being thrown - terminating the thread or process which that channel was being hosted on, and thus freeing/releasing the virtual memory which held the state of all characters on the channel before the database could commit it to storage on disk."
                 },
                 {
                     "ID": "MS-05",
                     "Name": "Item Duplication via Channel Crash (Cake vs. Pie Quest) - [IN-PROGRESS]",
                     "Year": 2011,
+                    "Severity": "High",
                     "Categories": ["Inventory State Rollback", "Currency/Item Generation", "Major virtual economy manipulation"],  
                     "Description": "Same concept as \"MS-04\" but involved a different quest,",
                     "Result": "",
-                    "Likely Root Cause": ""
+                    "Likely Root Cause & Remediation": ""
                 },
                 {
                     "ID": "MS-06",
@@ -64,7 +69,7 @@
                     "Year": 2014,
                     "Description": "A one-byte memory patch inverses a conditional jump and allows the attacker to use skills/attacks as fast as packets can be sent by the game.",
                     "Result": "",
-                    "Likely Root Cause": "checksum/CRC being finally 'solved', allowing attack packets to be spammed"
+                    "Likely Root Cause & Remediation": "checksum/CRC being finally 'solved', allowing attack packets to be spammed"
                 }                 
              ]
         },
@@ -78,6 +83,7 @@
                     "ID": "DN-01",
                     "Name": "Insecure Direct Object Reference (IDOR) - Administrator/Event Gifts",
                     "Year": 2016,
+                    "Severity": "Critical",
                     "Categories": ["Currency/Item Generation", "Major virtual economy manipulation"],
                     "Description": "Administrators can issue item gifts or rewards to players for events or downtime compensation. Each item/gift is represented in the outbound packet for retrieving it by a 4-byte unique identifier. No server-side check on gift ownership existed in the corresponding packet handler, allowing the attacker to enumerate sequentially through them and gain the gift's items. Administrators of the different regional versions of the game gave out different item gifts, with regions such as South East Asia (SEA) and North America (NA) having both Gold/currency and cash points as possible items you could get.",
                     "Result": "The vulnerability was exploited for approximately one year before being fixed on all regions of the game.",
