@@ -97,7 +97,21 @@
                     "Description": "",
                     "Result": "",
                     "Likely Root Cause": ""
-                }
+                },
+{
+  "ID": "DN-03",
+  "Name": "Cross-Player Movement/Action Spoofing via Session Entity ID",
+  "Region": "All",
+  "Categories": ["Cross-account, actor, or session impersonation", "Server-side trust-boundary failure"],
+  "Year": 2012,
+  "Severity": "High",
+  "Description": "The movement/action packet included a client-supplied four-byte player identifier representing an active session/entity, followed by an action code and position coordinates. The server accepted packets referring to another active player instead of enforcing that the referenced entity belonged to the sending connection. This allowed unauthorized movement and action updates affecting other players. In one observed scenario, repeated forged updates assigned multiple players the same coordinates, causing them to snap back after attempts to move away. Some action codes incompatible with the target character's class also caused the target client to crash. The underlying implementation of the crash was not determined.",
+  "Packet": "Historical logical layout (recalled from memory): [main opcode: 0x04][sub opcode: 0x01][4-byte active player/session ID][1-byte action code][Vector3 XYZ]. Exact encoding, framing, and byte order have not been independently verified.",
+  "Modified Packet": "The client-supplied active player/session ID was substituted with an identifier belonging to another player; action and position fields could then affect that player's client or movement state.",
+  "Result": "The author observed unauthorized displacement of other players, repeated forced repositioning of groups during in-game administrator events, and client crashes triggered by some class-incompatible actions. The vulnerability also enabled targeted disruption of other players' sessions. Following a subsequent patch, packets containing a player identifier that did not match the sender's session were rejected.",
+  "Likely Root Cause & Remediation": "The observed behavior is consistent with a missing authorization check binding the packet's player identifier to the authenticated sender. The later rejection of mismatched IDs supports this interpretation, although the original server implementation was not available for inspection. Server handlers should derive the controlled entity from the authenticated session or explicitly validate ownership before applying or broadcasting actions. Action codes should also be validated against the target entity's class and state, and clients should safely reject invalid action combinations."
+        }
+
             ]
         },
         {
