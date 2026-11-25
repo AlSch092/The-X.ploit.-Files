@@ -110,7 +110,7 @@
                      "Modified Packet": "The client-supplied active player/session ID was substituted with an identifier belonging to another player; action and position fields could then affect that player's client or movement state.",
                       "Result": "The author observed unauthorized displacement of other players, repeated forced repositioning of groups during in-game administrator events, and client crashes triggered by some class-incompatible actions. The vulnerability also enabled targeted disruption of other players' sessions. Following a subsequent patch, packets containing a player identifier that did not match the sender's session were rejected.",
                        "Likely Root Cause & Remediation": "The observed behavior is consistent with a missing authorization check binding the packet's player identifier to the authenticated sender. The later rejection of mismatched IDs supports this interpretation, although the original server implementation was not available for inspection. Server handlers should derive the controlled entity from the authenticated session or explicitly validate ownership before applying or broadcasting actions. Action codes should also be validated against the target entity's class and state, and clients should safely reject invalid action combinations."
-        }
+                }
 
             ]
         },
