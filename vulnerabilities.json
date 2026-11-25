@@ -136,10 +136,10 @@
                     "Name": "Item State Rollback Through Instance Crash - [IN-PROGRESS]",
                     "Year": 2019,
                     "Categories": ["Currency/Item Generation", "Minor virtual economy manipulation"],
-                    "Description": "",
+                    "Description": "Sending the packet to interact with the 'ending NPC' of a Trial while still in the Trial's lobby room would cause the instance to immediately crash.",
                     "Packet": "[2-byte opcode] [1-byte subcommand: 0x01]",
-                    "Result": "",
-                    "Likely Root Cause & Remediation": ""    
+                    "Result": "Actions performed in the Trial lobby before crashing would cause a session save failure, resembling a database rollback. Certain RNG-based items could be abused such that one could crash the instance if their RNG was unlucky, or otherwise not crash the instance if their result was favorable. The author used Divination Cards for this in order to acquire Mirror of Kalandra items, or similar high-value goods.",
+                    "Likely Root Cause & Remediation": "Player/session state failure related specifically to Trial instance workflows. No Entity ID was present in the vulnerable packet, so the server may not have been properly tracking whether the actual entity was being accessed in the correct map or not (possible NULL entity reference)"    
                 }
             ]
         },
